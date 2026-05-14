@@ -21,7 +21,11 @@ namespace BlazorTasks.Services
 
         public async Task DoneAsync(int Id)
         {
-            throw new NotImplementedException();
+            var task = TodoListItems.FirstOrDefault(x => x.ID == Id);
+            if(task != null)
+            {
+                task.IsDone = !task.IsDone;
+            }
         }
         
         public async Task RemoveAsync(int Id)
