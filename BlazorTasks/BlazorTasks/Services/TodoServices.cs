@@ -14,7 +14,7 @@ namespace BlazorTasks.Services
             {
                 Title = Title,
                 IsDone = false,
-                ID = TodoListItems.Count > 0 ? TodoListItems.Count+ 1 : 1
+                ID = TodoListItems.Count > 0 ? TodoListItems.Max(x => x.ID) + 1 : 1
             };
             TodoListItems.Add(newItem);
         }
@@ -26,7 +26,11 @@ namespace BlazorTasks.Services
         
         public async Task RemoveAsync(int Id)
         {
-            throw new NotImplementedException();
+            var task = TodoListItems.FirstOrDefault(x => x.ID == Id);
+            if (task != null)
+            {
+                TodoListItems.Remove(task);
+            }
         }
 
         public async Task<List<TodoItem>> GetTodoItemsAsync()
